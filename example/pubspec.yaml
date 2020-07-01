@@ -1,0 +1,11 @@
+name: needle_example
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+dependencies:
+  needle:
+    path: ../
+
+dev_dependencies:
+  build_runner: ^1.3.0
