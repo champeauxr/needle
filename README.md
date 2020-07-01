@@ -29,6 +29,11 @@ or by adding the `@ReflectInclude` annotation to the factory class:
 class MyFactory extends ClassFactory with $MyFactory {}
 ```
 
+Generate the class factory by running the following command:
+```
+pub run build_runner build
+```
+
 ## Registering Classes
 
 Classes are registered with Needle using a `ContainerBuilder`.
