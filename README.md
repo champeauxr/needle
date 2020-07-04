@@ -1,149 +1,163 @@
-# needle
+# Needle
 
-A dependency injection library for Dart/Flutter inspired by AutoFac (https://autofac.org/)
+Needle is a dependency injection library for Dart/Flutter inspired by AutoFac (https://autofac.org/).
+It uses a generated reflection mechanism to construct registered class by walking their dependency
+trees and creating their dependents.
+
+For example, in order to create an instance of `SalesAccountBloc`, the constructor must be provided with
+instances of `AgentRepository` and `CustomerRepository`. 
+```dart
+class SalesAccountBloc {
+  SalesAccountBloc({
+    this.agentRepository,
+    this.customerRepository,
+  });
+
+  final AgentRepository agentRepository;
+  final CustomerRepository customerRepository;
+}
+```
+Needle uses the generated reflection data to examine the parameters of the `SalesAccountBloc` 
+constructor and will see that it requires an instance of `AgentRepository` and `CustomerRepository`.
+Needle will then recursively resolve `AgentRepository` and `CustomerRepository` to create instances
+to pass to the `SalesAccountBloc` constructor.
+
+When it attempts to resolve and create an instance of `AgentRepository`, it will see that its
+constructor requires an instance of `AgentDataStore` and `ObjectCache`. It will then recursively
+resolve those two objects.
+```dart
+class AgentRepository {
+  AgentRepository({
+    this.dataStore,
+    this.objectCache,
+  });
+
+  final AgentDataStore dataStore;
+  final ObjectCache objectCache;
+}
+```
+
+Needle uses type registrations to provide information about how to create instances of types,
+how the object will be cached, and what interface or base class will be used to reference the
+type. For example, the following registers the `AgentRepositoryImpl` class as the class to
+be resolved when the `AgentRepository` interface is requested. Additionally, it specifies that
+the class will be a singleton.
+```dart
+builder.registerType<AgentRepositoryImpl>
+  .as<AgentRepository>()
+  .singleInstance();
+```
+
+Similarly, the following registers the `ObjectCache` class and specifies that a new instance
+of the class should be created each time the class is resolved.
+```dart
+builder.registerType<AgentRepositoryImpl>
+  .instancePerDependency();
+```
+
+Registrations can also be named, allow multiple registrations to be created for a type that
+can be specified by constructor parameters using the `@Named` annotation.
+```dart
+builder.registerType<AgentObjectCache>
+  .as<ObjectCache>
+  .withName('Agent')
+  .singleInstance();
+
+builder.registerType<AgentObjectCache>
+  .as<ObjectCache>
+  .withName('Customer')
+  .singleInstance();
+```
+```dart
+class AgentRepository {
+  AgentRepository({
+    this.dataStore,
+    @Named('Agent') this.objectCache,
+  });
+
+  final AgentDataStore dataStore;
+  final ObjectCache objectCache;
+}
+```
+
+Type registrations can specify other attributes, such as the name of the constructor to
+use and a list of parameter values to supply to the constructor.
+```dart
+builder.registerType<ObjectCache>
+  .withConstructor('fixedSize')
+  .withParameters({'size': 10})
+  .instancePerDependency();
+```
 
 ## Getting Started
 
-Needle is a dependency injection that uses a generated reflection mechanism to construct
-registered objects by walking its dependency tree and creating its dependents.
+Needle uses reflection to walk the dependencies of classes. Dart provides a reflection
+mechanism, however it is not enabled in the Flutter SDK due to performance concerns and
+because it would prevent the use of Flutter's tree-shaking mechanism that reduces the 
+size of apps.
 
-At its core, Needle uses code generation to reflect classes to be injected and create a
-class factory that provides information about the class constructors and their parameters.
+Needle overcomes this by using code generation to create `ClassMirror` instances for
+classes that have been marked by the `@reflect` or `@ReflectInclude` annotations.
+The `ClassMirror` objects provide the registration with information about the constructors
+for the class, their parameters, and a function that invokes the constructor.
 
-The factory class is identified with the `@factory` attribute.
+The `ContainerBuidler` class is used to create registrations and build the root `Scope`
+object that is used to resolve classes. `ContainerBuilder` is an class that must be
+subclassed to provide a `getMirror()` method that the `ContainerBuilder` uses to 
+retrieve the `ClassMirror` for a registration. While this could be done manually,
+Needle provides a code generation builder that will generate the `ClassMirror` objects
+automatically.
+
+To use the code generation, create a class definition and annotate it with the `@needle`
+annotation.
 ```dart
-@factory
-class MyFactory extends ClassFactory with $MyFactory {}
+import 'injection_builder.needle.dart';
+
+@needle
+class InjectionBuilder extends $InjectionBuilder {}
 ```
 
-Classes to be reflected are identified by either annotating them with the `@reflect` annotation:
+The class must extend a class whose name is the name of the builder class prefixed
+with a `$`. This class will be created during the code generat step. Additionally,
+the file must import a file whose name is the same as the source file, but with
+an `.needle.dart` extension.
+
+The `.needle.dart` file is created by the code generator and contains the base
+class for the builder. This class extends the `ContainerBuilder` class and
+provides an implementation of the `getMirror()` method that will return 
+`ClassMirror` objects for each class annotated with the `@reflect` annotation.
 ```dart
 @reflect
-class ObjectCache {}
-```
+class AgentRepository {
+  AgentRepository({
+    this.dataStore,
+    this.objectCache,
+  });
 
-or by adding the `@ReflectInclude` annotation to the factory class:
-```dart
-@ReflectInclude(ObjectCache)
-@factory
-class MyFactory extends ClassFactory with $MyFactory {}
-```
-
-Generate the class factory by running the following command:
-```
-pub run build_runner build
-```
-
-## Registering Classes
-
-Classes are registered with Needle using a `ContainerBuilder`.
-
-Create a builder and pass it a ClassFactory.
-```dart
-  final builder = ContainerBuilder(MyFactory());
-```
-
-- Register an instance of an object
-```dart
-  builder.registerInstance(SomeService(5));
-```
-
-- Register a factory method
-```dart
-  builder.registerFactory((container) => AnotherService(
-        someField: 5,
-        anotherField: 6,
-      ));
-```
-
-- Register a type as a singleton
-```dart
-  builder.registerType<FooRepository>().singleInstance();
-```
-
-- Register a type so that a new instance is created for each request
-```dart
-  builder.registerType<FooRepository>().instancePerDependency();
-
-```
-
-- Register a concrete type as an interface
-```dart
-  builder
-      .registerType<RepositoryModelImpl>()
-      .as<RepositoryModel>()
-      .singleInstance();
-```
-
-- Register a type using a named constructor
-```dart
-  builder
-      .registerType<FooDataStore>()
-      .withConstructor('large')
-      .singleInstance();
-```
-
-- Specify values for constructor parameters
-```dart
-  builder
-      .registerType<BarDataStore>()
-      .singleInstance()
-      .withParameters({'size': 6});
-```
-
-- Register named instances
-```dart
-  builder.registerType<ObjectCache>().singleInstance().withName('Foo');
-  builder.registerType<ObjectCache>().singleInstance().withName('Bar');
-```
-
-## Building the Container and Resolving Objects
-
-Once the classes are registered, a `Container` is created from the builder:
-```dart
-  final container = builder.build();
-```
-
-Object can be resolved with:
-```dart
-  final obj = container.resolve<RepositoryModel>();
-
-  final barCache = container.resolve<ObjectCache>(name: 'Bar');
-  final fooCache = container.resolve<ObjectCache>(name: 'Foo');
-```
-
-When a object is created by Needle, it recursively resolves the constructor parameters of
-the object.
-
-For instance when `BarRepository` is resolved, it will first create `BarDataStore` if it hasn't
-already been created.
-```dart
-class BarRepository {
-  BarRepository(this._dataStore);
-
-  final BarDataStore _dataStore;
-
-  void test() {
-    print(_dataStore.size);
-  }
-}
-
-class BarDataStore {
-  BarDataStore(@Named('Bar') this.cache, this.size);
-
-  final ObjectCache cache;
-  final int size;
+  final AgentDataStore dataStore;
+  final ObjectCache objectCache;
 }
 ```
 
-Constructor parameters of a registered class can specify a named instance with the
-`@Named` attribute.
-
+When annotating a class with `@reflect` is undesirable or not feasible, such
+as with classes from a third party library, the `@ReflectInclude` annotation
+can be applied to the builder class.
 ```dart
-class BarDataStore {
-  BarDataStore(@Named('Bar') this.cache, this.size);
+@ReflectInclude(SomeService)
+@needle
+class InjectionBuilder extends $InjectionBuilder {}
+```
 
-  final ObjectCache cache;
-  final int size;
-}
+The root `Scope` object is created by creating an instance of the builder class,
+registering types with it, and then calling the `build()` method.
+```dart
+final builder = InjectionBuilder();
+
+builder.registerType<ObjectCache>.instancePerDependency();
+builder.registerType<AgentDataStore>.singleInstance();
+builder.registerType<AgentRepository>.singleInstance();
+
+final scope = builder.build();
+
+final repository = scope.resolve<AgentRepository>();
 ```

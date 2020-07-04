@@ -1,11 +1,16 @@
-import 'package:needle/container.dart';
+import 'dart:math';
+
 import 'package:needle/needle.dart';
 
-import 'factory.dart';
-import 'models.dart';
+import 'main.needle.dart';
+
+@ReflectInclude(AnotherService)
+@needle
+class Builder extends $Builder {}
 
 void main() {
-  final builder = ContainerBuilder(MyFactory());
+  final builder = Builder();
+  builder.setLogger((message) => print(message));
 
   builder.registerInstance(SomeService(5));
 
@@ -40,13 +45,121 @@ void main() {
 
   final container = builder.build();
 
-  final obj = container.resolve<RepositoryModel>();
+  final repositoryModel = container.resolve<RepositoryModel>();
 
   final barCache = container.resolve<ObjectCache>(name: 'Bar');
   final fooCache = container.resolve<ObjectCache>(name: 'Foo');
 
-  print(barCache);
-  print(fooCache);
+  final repositoryModelCopy = container.resolve<RepositoryModel>();
+}
 
-  print(obj);
+@reflect
+class ObjectCache {
+  final cache = <dynamic>[];
+  final id = Random().nextInt(1000);
+}
+
+@reflect
+class BarDataStore {
+  BarDataStore(@Named('Bar') this.cache, this.size);
+
+  final ObjectCache cache;
+  final int size;
+}
+
+@reflect
+class BarRepository {
+  BarRepository(this._dataStore);
+
+  final BarDataStore _dataStore;
+
+  void test() {
+    print(_dataStore.size);
+  }
+}
+
+@reflect
+class FooDataStore {
+  FooDataStore(@Named('Foo') this.cache, this.size);
+  FooDataStore.large(@Named('Foo') this.cache) : size = 10;
+  FooDataStore.small(@Named('Foo') this.cache) : size = 2;
+
+  final ObjectCache cache;
+  final int size;
+}
+
+@reflect
+class FooRepository {
+  FooRepository(this._dataStore);
+
+  final FooDataStore _dataStore;
+
+  void test() {
+    print(_dataStore.size);
+  }
+}
+
+abstract class RepositoryModel {}
+
+@reflect
+class RepositoryModelImpl implements RepositoryModel {
+  RepositoryModelImpl(
+      {this.fooRepository, this.barRepository, this.fooCache, this.barCache});
+
+  final FooRepository fooRepository;
+  final BarRepository barRepository;
+  final ObjectCache fooCache;
+  final ObjectCache barCache;
+}
+
+@reflect
+class SomeService {
+  SomeService(this.someField);
+
+  final int someField;
+}
+
+class AnotherService {
+  AnotherService({this.someField, this.anotherField});
+
+  final int someField;
+  final int anotherField;
+}
+
+class AgentDataStore {
+  AgentDataStore();
+}
+
+class AgentRepository {
+  AgentRepository({
+    this.dataStore,
+    this.objectCache,
+  });
+
+  final AgentDataStore dataStore;
+  final ObjectCache objectCache;
+}
+
+class CustomerDataStore {
+  CustomerDataStore();
+}
+
+class CustomerRepository {
+  CustomerRepository({
+    this.dataStore,
+    this.objectCache,
+  });
+
+  final CustomerDataStore dataStore;
+  final ObjectCache objectCache;
+}
+
+class SalesAccountBloc {
+  SalesAccountBloc({
+    this.agentRepository,
+    this.customerRepository,
+  });
+
+  final AgentRepository agentRepository;
+  final CustomerRepository customerRepository;
 }

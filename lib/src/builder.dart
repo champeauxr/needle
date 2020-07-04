@@ -5,20 +5,20 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:glob/glob.dart';
-import 'package:needle/reflection.dart';
+import 'package:needle/src/annotations.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'file_template.dart';
 
-Builder factoryBuilder(BuilderOptions options) => FactoryBuilder();
+Builder needleBuilder(BuilderOptions options) => NeedleBuilder();
 
-class FactoryBuilder implements Builder {
+class NeedleBuilder implements Builder {
   static const generatedExtension = '.needle.dart';
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
     final libraryReader = LibraryReader(await buildStep.inputLibrary);
-    final generator = FactoryGenerator();
+    final generator = NeedleGenerator();
     final str = await generator.generate(libraryReader, buildStep);
     if (str != null && str != '') {
       final formatter = DartFormatter();
@@ -36,7 +36,7 @@ class FactoryBuilder implements Builder {
       };
 }
 
-class FactoryGenerator extends GeneratorForAnnotation<Factory> {
+class NeedleGenerator extends GeneratorForAnnotation<Needle> {
   static final _allFilesInLib = Glob('lib/**');
 
   @override

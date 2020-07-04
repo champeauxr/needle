@@ -1,10 +1,13 @@
-import 'package:needle/mirrors.dart';
-import 'package:needle/reflection.dart';
+import 'package:needle/needle.dart';
+import 'package:needle/mirror.dart';
 
-import 'package:needle_example/models.dart' as prefix1;
+import 'package:needle_example/main.dart' as prefix1;
 
-mixin $MyFactory {
-  Map<Type, ClassMirror> get mirrors => {
+class $Builder extends ContainerBuilder {
+  @override
+  ClassMirror getMirror(Type type) => _mirrors[type];
+
+  Map<Type, ClassMirror> get _mirrors => {
         prefix1.ObjectCache: ClassMirror(
           prefix1.ObjectCache,
           {
@@ -168,6 +171,50 @@ mixin $MyFactory {
                       barRepository: barRepository,
                       fooCache: fooCache,
                       barCache: barCache),
+            )
+          },
+        ),
+        prefix1.SomeService: ClassMirror(
+          prefix1.SomeService,
+          {
+            '': ConstructorMirror(
+              '',
+              <ParameterMirror>[
+                ParameterMirror(
+                  'someField',
+                  typeOf<int>(),
+                  false,
+                  false,
+                  [],
+                )
+              ],
+              (someField) => prefix1.SomeService(someField),
+            )
+          },
+        ),
+        prefix1.AnotherService: ClassMirror(
+          prefix1.AnotherService,
+          {
+            '': ConstructorMirror(
+              '',
+              <ParameterMirror>[
+                ParameterMirror(
+                  'someField',
+                  typeOf<int>(),
+                  true,
+                  true,
+                  [],
+                ),
+                ParameterMirror(
+                  'anotherField',
+                  typeOf<int>(),
+                  true,
+                  true,
+                  [],
+                )
+              ],
+              ({someField, anotherField}) => prefix1.AnotherService(
+                  someField: someField, anotherField: anotherField),
             )
           },
         )

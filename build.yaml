@@ -7,8 +7,8 @@ targets:
 builders:
   needle-factory:
     target: ":needle"
-    import: "package:needle/builder/builder.dart"
-    builder_factories: ["factoryBuilder"]
+    import: "package:needle/src/builder.dart"
+    builder_factories: ["needleBuilder"]
     build_extensions: {".dart": [".needle.dart"]}
     auto_apply: dependents
     build_to: source
