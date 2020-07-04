@@ -148,6 +148,12 @@ can be applied to the builder class.
 class InjectionBuilder extends $InjectionBuilder {}
 ```
 
+The generated base class for the builder is created using the `build_runner`
+package by executing the following command:
+```
+pub run build_runner build
+```
+
 The root `Scope` object is created by creating an instance of the builder class,
 registering types with it, and then calling the `build()` method.
 ```dart
