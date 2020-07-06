@@ -85,7 +85,7 @@ import 'package:needle/mirror.dart';
 $renderedImports 
 
 
-class \$$factoryName extends ContainerBuilder {
+class \$$factoryName extends ScopeBuilder {
   @override
   ClassMirror getMirror(Type type) => _mirrors[type];
   

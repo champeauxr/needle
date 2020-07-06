@@ -3,7 +3,7 @@ import 'package:needle/src/registration_exception.dart';
 
 /// Builder class used to create a class [Registration].
 ///
-/// This class is created the registration methods of the [ContainerBuilder]
+/// This class is created by the registration methods of the [ScopeBuilder]
 /// and implements a builder pattern for setting the attributes of a
 /// class [Registration].
 ///

@@ -1,8 +1,8 @@
 # Needle
 
-Needle is a dependency injection library for Dart/Flutter inspired by AutoFac (https://autofac.org/).
+Needle is a dependency injection library for Dart/Flutter inspired by Autofac ( https://autofac.org/ ).
 It uses a generated reflection mechanism to construct registered class by walking their dependency
-trees and creating their dependents.
+trees and creating their constructor parameters.
 
 For example, in order to create an instance of `SalesAccountBloc`, the constructor must be provided with
 instances of `AgentRepository` and `CustomerRepository`. 
@@ -63,7 +63,7 @@ builder.registerType<AgentObjectCache>
   .withName('Agent')
   .singleInstance();
 
-builder.registerType<AgentObjectCache>
+builder.registerType<CustomerObjectCache>
   .as<ObjectCache>
   .withName('Customer')
   .singleInstance();
@@ -89,6 +89,11 @@ builder.registerType<ObjectCache>
   .instancePerDependency();
 ```
 
+If a constructor takes a `Scope` as one of it's parameters, it will be given the 
+`Scope` that creates the object. This can be useful if object needs to create
+multiple instances of a class. For instance the class might need to create an
+instance of another class every time a method is called.
+
 ## Getting Started
 
 Needle uses reflection to walk the dependencies of classes. Dart provides a reflection
@@ -101,9 +106,9 @@ classes that have been marked by the `@reflect` or `@ReflectInclude` annotations
 The `ClassMirror` objects provide the registration with information about the constructors
 for the class, their parameters, and a function that invokes the constructor.
 
-The `ContainerBuidler` class is used to create registrations and build the root `Scope`
-object that is used to resolve classes. `ContainerBuilder` is an class that must be
-subclassed to provide a `getMirror()` method that the `ContainerBuilder` uses to 
+The `ScopeBuilder` class is used to create registrations and build the root `Scope`
+object that is used to resolve classes. `ScopeBuilder` is an class that must be
+subclassed to provide a `getMirror()` method that the `ScopeBuilder` uses to 
 retrieve the `ClassMirror` for a registration. While this could be done manually,
 Needle provides a code generation builder that will generate the `ClassMirror` objects
 automatically.
@@ -118,12 +123,12 @@ class InjectionBuilder extends $InjectionBuilder {}
 ```
 
 The class must extend a class whose name is the name of the builder class prefixed
-with a `$`. This class will be created during the code generat step. Additionally,
+with a `$`. This class will be created during the code generation step. Additionally,
 the file must import a file whose name is the same as the source file, but with
 an `.needle.dart` extension.
 
 The `.needle.dart` file is created by the code generator and contains the base
-class for the builder. This class extends the `ContainerBuilder` class and
+class for the builder. This class extends the `ScopeBuilder` class and
 provides an implementation of the `getMirror()` method that will return 
 `ClassMirror` objects for each class annotated with the `@reflect` annotation.
 ```dart
@@ -139,9 +144,9 @@ class AgentRepository {
 }
 ```
 
-When annotating a class with `@reflect` is undesirable or not feasible, such
-as with classes from a third party library, the `@ReflectInclude` annotation
-can be applied to the builder class.
+When it is undesirable or not feasible to annotate a class with the `@reflect`
+annotation, such as with classes from a third party library, the `@ReflectInclude`
+annotation can be applied to the builder class.
 ```dart
 @ReflectInclude(SomeService)
 @needle
@@ -167,3 +172,16 @@ final scope = builder.build();
 
 final repository = scope.resolve<AgentRepository>();
 ```
+
+## Future Features
+- Validation will be added to the `ScopeBuilder.build()` method. After the Scope is
+built, it walk the dependency trees of every registered class to verify that all of
+their dependencies can be provided.
+- There is support for creating child `Scope` objects, including `Scope.createScope()`
+and `Registrationbuilder.asScope()`. The purpose of this methods is to support the
+`PersistenceType.InstancePerScope` lifetime. This needs to be tested and hardened.
+- Currently you can provide constructor parameters in the `Registration` using 
+the `RegistrationBuilder.withParameters()` method. The plan is to allow parameters
+to also be provided to the `Scope.resolve<T>()` method. This will be matched with a 
+'RegistrationBuilder.expectParameters()` to indicate in the registration which parameters
+must be provided by the client in the `resolve<T>()` method.

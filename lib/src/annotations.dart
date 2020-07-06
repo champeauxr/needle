@@ -45,11 +45,11 @@ class ReflectInclude {
   final Type type;
 }
 
-/// The annotation `@needle` marks a class as a Needle ContainerBuilder that
+/// The annotation `@needle` marks a class as a Needle ScopeBuilder that
 /// build_runner will populate with mirrors of the reflected classes.
 const needle = Needle();
 
-/// The annotation `@Needle()` marks a class as a Needle ContainerBuilder that
+/// The annotation `@Needle()` marks a class as a Needle ScopeBuilder that
 /// build_runner will populate with mirrors of the reflected classes.
 class Needle {
   const Needle();

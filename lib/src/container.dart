@@ -21,8 +21,8 @@ import 'package:needle/src/registration_exception.dart';
 /// final dataStore = scope.resolve<FooDataStore>();
 /// ```
 ///
-/// To create a [Scope] instance, clients add registrations to a [ContainerBuilder]
-/// and call its [build()] method. ContainerBuilders are created using code
+/// To create a [Scope] instance, clients add registrations to a [ScopeBuilder]
+/// and call its [build()] method. ScopeBuilders are created using code
 /// generation and are filled with reflection mirrors for requested types.
 ///
 /// ```
@@ -41,18 +41,23 @@ abstract class Scope with _ComponentCache {
   /// Creates a new child [Scope]. Object created from registrations with
   /// [PersistenceType.InstancePerScope] are cached in the scope that created them.
   Scope createScope();
+
+  /// Retrieves the root Scope.
+  static Scope get root => _rootScope;
+
+  static Scope _rootScope;
 }
 
 /// A dependency injection builder that creates the root [Scope] object
 /// from type registrations.
 ///
-/// The [ContainerBuilder] is an abstract class that contains the base logic
+/// The [ScopeBuilder] is an abstract class that contains the base logic
 /// for creating Needle [Scope] objects. Derived classes must provide an
 /// implementation of the [getMirror()] method that describes the construction
 /// information for classes.
 ///
 /// This derived class is typically provided using the Needle code generator.
-/// When a class is annotated with the [@needle] annotation, a [ContainerBuilder]
+/// When a class is annotated with the [@needle] annotation, a [ScopeBuilder]
 /// derived class is created containing a collection of [ClassMirror] objects
 /// for each of classes marked with the [@reflect] or the [@ReflectInclude]
 /// annotations.
@@ -61,8 +66,8 @@ abstract class Scope with _ComponentCache {
 /// @needle
 /// class Builder extends $Builder {}
 /// ```
-abstract class ContainerBuilder {
-  ContainerBuilder();
+abstract class ScopeBuilder {
+  ScopeBuilder();
 
   final List<RegistrationBuilder> _builders = <RegistrationBuilder>[];
   void Function(String message) _logger;
@@ -111,10 +116,20 @@ abstract class ContainerBuilder {
   }
 
   /// Builds the root [Scope] from the registrations.
-  Scope build() {
-    return _ComponentContainer(
+  Scope build({bool setAsRoot = true}) {
+    if (setAsRoot && Scope._rootScope != null) {
+      throw RegistrationException('Root scope has already been set');
+    }
+
+    final scope = _ComponentContainer(
             _builders.map((b) => b.registration).toList(), _logger)
         .createScope();
+
+    if (setAsRoot) {
+      Scope._rootScope = scope;
+    }
+
+    return scope;
   }
 }
 
@@ -204,6 +219,13 @@ class _ComponentContainer with _ComponentCache {
   /// parent scopes.
   dynamic _resolve(Scope scope, Type type, String name) {
     // TODO(rc): implement asScope() functionality
+
+    if (type == Scope) {
+      assert(name == null || name == '');
+
+      return scope;
+    }
+
     final registration = _registrations.firstWhere(
         (r) => r.asType == type && r.name == name,
         orElse: () => null);

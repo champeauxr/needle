@@ -1,6 +1,6 @@
 name: needle
-description: Needle is a dependency injection library for Dart/Flutter inspired by AutoFac (https://autofac.org/).
-version: 0.0.1-dev.2
+description: Needle is a dependency injection library for Dart/Flutter inspired by Autofac ( https://autofac.org/ ).
+version: 0.0.1-dev.3
 homepage: https://github.com/champeauxr/needle
 
 environment:

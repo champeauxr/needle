@@ -1,3 +1,10 @@
+# 0.0.1-dev.3
+
+- Added static `root` property to Scope to hold the root scope.
+- Renamed ContainerBuilder to ScopeBuilder
+- If a constructor takes a Scope as a parameter, it will receive the scope that created the object.
+- Updated documentation
+
 # 0.0.1-dev.2
 
 Refactor and documentation

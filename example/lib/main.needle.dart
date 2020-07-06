@@ -3,7 +3,7 @@ import 'package:needle/mirror.dart';
 
 import 'package:needle_example/main.dart' as prefix1;
 
-class $Builder extends ContainerBuilder {
+class $Builder extends ScopeBuilder {
   @override
   ClassMirror getMirror(Type type) => _mirrors[type];
 
