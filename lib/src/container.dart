@@ -218,8 +218,6 @@ class _ComponentContainer with _ComponentCache {
   /// the [scope]'s cache will be searched for the object before searching
   /// parent scopes.
   dynamic _resolve(Scope scope, Type type, String name) {
-    // TODO(rc): implement asScope() functionality
-
     if (type == Scope) {
       assert(name == null || name == '');
 
@@ -233,6 +231,10 @@ class _ComponentContainer with _ComponentCache {
     if (registration == null) {
       _logger?.call('Registration for $type not found');
       throw RegistrationException('Registration not found for $type');
+    }
+
+    if (registration.isScope) {
+      scope = scope.createScope();
     }
 
     dynamic result;

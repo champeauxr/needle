@@ -175,7 +175,7 @@ final repository = scope.resolve<AgentRepository>();
 
 ## Future Features
 - Validation will be added to the `ScopeBuilder.build()` method. After the Scope is
-built, it walk the dependency trees of every registered class to verify that all of
+built, it will walk the dependency trees of every registered class to verify that all of
 their dependencies can be provided.
 - There is support for creating child `Scope` objects, including `Scope.createScope()`
 and `Registrationbuilder.asScope()`. The purpose of this methods is to support the
@@ -183,5 +183,5 @@ and `Registrationbuilder.asScope()`. The purpose of this methods is to support t
 - Currently you can provide constructor parameters in the `Registration` using 
 the `RegistrationBuilder.withParameters()` method. The plan is to allow parameters
 to also be provided to the `Scope.resolve<T>()` method. This will be matched with a 
-'RegistrationBuilder.expectParameters()` to indicate in the registration which parameters
+`RegistrationBuilder.expectParameters()` to indicate in the registration which parameters
 must be provided by the client in the `resolve<T>()` method.

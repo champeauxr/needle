@@ -1,3 +1,7 @@
+# 0.0.1-dev.4
+- Implemented `asScope()` functionality
+- Fixed code generation interaction with other builders
+
 # 0.0.1-dev.3
 
 - Added static `root` property to Scope to hold the root scope.

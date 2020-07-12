@@ -17,6 +17,11 @@ class NeedleBuilder implements Builder {
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
+    final isLibrary = await buildStep.resolver.isLibrary(buildStep.inputId);
+    if (!isLibrary) {
+      return;
+    }
+
     final libraryReader = LibraryReader(await buildStep.inputLibrary);
     final generator = NeedleGenerator();
     final str = await generator.generate(libraryReader, buildStep);
@@ -54,6 +59,11 @@ class NeedleGenerator extends GeneratorForAnnotation<Needle> {
     }
 
     await for (final input in buildStep.findAssets(_allFilesInLib)) {
+      final isLibrary = await buildStep.resolver.isLibrary(input);
+      if (!isLibrary) {
+        continue;
+      }
+
       final libraryElement = await buildStep.resolver.libraryFor(input);
       final library = LibraryReader(libraryElement);
 

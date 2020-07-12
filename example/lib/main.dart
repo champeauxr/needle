@@ -51,6 +51,11 @@ void main() {
   final fooCache = container.resolve<ObjectCache>(name: 'Foo');
 
   final repositoryModelCopy = container.resolve<RepositoryModel>();
+
+  print(repositoryModel);
+  print(barCache);
+  print(fooCache);
+  print(repositoryModelCopy);
 }
 
 @reflect
