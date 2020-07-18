@@ -233,7 +233,7 @@ class _ComponentContainer with _ComponentCache {
       throw RegistrationException('Registration not found for $type');
     }
 
-    if (registration.isScope) {
+    if (registration.isScope ?? false) {
       scope = scope.createScope();
     }
 

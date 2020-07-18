@@ -1,3 +1,6 @@
+# 0.0.1-dev.5
+- Fixed `resolve` exception when `isScope` is null
+
 # 0.0.1-dev.4
 - Implemented `asScope()` functionality
 - Fixed code generation interaction with other builders
