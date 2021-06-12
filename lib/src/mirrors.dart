@@ -13,8 +13,8 @@ class ClassMirror {
   /// Creates a new instance of the class using the constructor named
   /// [constructorName] and with the [positionalArguments] and [namedArguments].
   Object newInstance(String constructorName, List positionalArguments,
-      [Map<Symbol, dynamic> namedArguments]) {
-    return Function.apply(constructors[constructorName].constructor,
+      [Map<Symbol, dynamic>? namedArguments]) {
+    return Function.apply(constructors[constructorName]!.constructor,
         positionalArguments, namedArguments);
   }
 }
@@ -32,7 +32,7 @@ class ConstructorMirror {
   /// Creates a new instance of the class by calling the constructor function
   /// with the [positionalArguments] and [namedArguments].
   Object newInstance(List positionalArguments,
-      [Map<Symbol, dynamic> namedArguments]) {
+      [Map<Symbol, dynamic>? namedArguments]) {
     return Function.apply(constructor, positionalArguments, namedArguments);
   }
 }

@@ -25,7 +25,7 @@ class NeedleBuilder implements Builder {
     final libraryReader = LibraryReader(await buildStep.inputLibrary);
     final generator = NeedleGenerator();
     final str = await generator.generate(libraryReader, buildStep);
-    if (str != null && str != '') {
+    if (str != '') {
       final formatter = DartFormatter();
 
       final formatted = formatter.format(str);
@@ -54,7 +54,7 @@ class NeedleGenerator extends GeneratorForAnnotation<Needle> {
     final includeTypes = <DartType>[];
 
     for (var annotation in includeChecker.annotationsOf(element)) {
-      final type = annotation.getField('type').toTypeValue();
+      final type = annotation.getField('type')!.toTypeValue()!;
       includeTypes.add(type);
     }
 

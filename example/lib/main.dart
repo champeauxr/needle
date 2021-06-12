@@ -109,7 +109,10 @@ abstract class RepositoryModel {}
 @reflect
 class RepositoryModelImpl implements RepositoryModel {
   RepositoryModelImpl(
-      {this.fooRepository, this.barRepository, this.fooCache, this.barCache});
+      {required this.fooRepository,
+      required this.barRepository,
+      required this.fooCache,
+      required this.barCache});
 
   final FooRepository fooRepository;
   final BarRepository barRepository;
@@ -125,7 +128,7 @@ class SomeService {
 }
 
 class AnotherService {
-  AnotherService({this.someField, this.anotherField});
+  AnotherService({required this.someField, required this.anotherField});
 
   final int someField;
   final int anotherField;
@@ -137,8 +140,8 @@ class AgentDataStore {
 
 class AgentRepository {
   AgentRepository({
-    this.dataStore,
-    this.objectCache,
+    required this.dataStore,
+    required this.objectCache,
   });
 
   final AgentDataStore dataStore;
@@ -151,8 +154,8 @@ class CustomerDataStore {
 
 class CustomerRepository {
   CustomerRepository({
-    this.dataStore,
-    this.objectCache,
+    required this.dataStore,
+    required this.objectCache,
   });
 
   final CustomerDataStore dataStore;
@@ -161,8 +164,8 @@ class CustomerRepository {
 
 class SalesAccountBloc {
   SalesAccountBloc({
-    this.agentRepository,
-    this.customerRepository,
+    required this.agentRepository,
+    required this.customerRepository,
   });
 
   final AgentRepository agentRepository;

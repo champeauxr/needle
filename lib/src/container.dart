@@ -4,6 +4,8 @@ import 'package:needle/src/registration.dart';
 import 'package:needle/src/registration_builder.dart';
 import 'package:needle/src/registration_exception.dart';
 
+import 'iterable_extensions.dart';
+
 /// An IoC container used to resolve objects.
 ///
 /// The [Scope] serves two purposes: it provides a mechanism for creating
@@ -36,16 +38,16 @@ import 'package:needle/src/registration_exception.dart';
 abstract class Scope with _ComponentCache {
   /// Resolves a instance of class [T]. If [name] is provided, a named
   /// registration is used.
-  T resolve<T>({String name});
+  T resolve<T extends Object>({String? name});
 
   /// Creates a new child [Scope]. Object created from registrations with
   /// [PersistenceType.InstancePerScope] are cached in the scope that created them.
   Scope createScope();
 
   /// Retrieves the root Scope.
-  static Scope get root => _rootScope;
+  static Scope get root => _rootScope!;
 
-  static Scope _rootScope;
+  static Scope? _rootScope;
 }
 
 /// A dependency injection builder that creates the root [Scope] object
@@ -70,7 +72,7 @@ abstract class ScopeBuilder {
   ScopeBuilder();
 
   final List<RegistrationBuilder> _builders = <RegistrationBuilder>[];
-  void Function(String message) _logger;
+  void Function(String message)? _logger;
 
   /// Provides a [ClassMirror] for the specified [type].
   ///
@@ -95,7 +97,7 @@ abstract class ScopeBuilder {
   }
 
   /// Adds a registration that provides a specific [instance] of a class.
-  RegistrationBuilder registerInstance(dynamic instance) {
+  RegistrationBuilder registerInstance(Object instance) {
     final builder = RegistrationBuilder(Registration.instance(
       instance: instance,
       asType: instance.runtimeType,
@@ -106,7 +108,7 @@ abstract class ScopeBuilder {
 
   /// Adds a registration with a [factory] method.
   RegistrationBuilder registerFactory<T>(
-      dynamic Function(Scope container) factory) {
+      Object Function(Scope container) factory) {
     final builder = RegistrationBuilder(Registration.factory(
       factory: factory,
       asType: T,
@@ -135,7 +137,7 @@ abstract class ScopeBuilder {
 
 /// A cache for singleInstance and instancePerScope object created by the Scope.
 abstract class _ComponentCache {
-  final _cache = <Registration, dynamic>{};
+  final _cache = <Registration, Object>{};
 }
 
 /// Concrete implementation of the Scope class that delegates object resolution
@@ -146,7 +148,7 @@ class _ComponentScope extends Scope {
   final _ComponentContainer _container;
 
   @override
-  T resolve<T>({String name}) {
+  T resolve<T extends Object>({String? name}) {
     return _container.resolve<T>(this, name: name);
   }
 
@@ -162,7 +164,7 @@ class _ComponentContainer with _ComponentCache {
 
   /// The list of type registrations.
   final List<Registration> _registrations;
-  final void Function(String message) _logger;
+  final void Function(String message)? _logger;
 
   /// Provides a [ClassMirror] for the specified [type].
   ///
@@ -172,7 +174,7 @@ class _ComponentContainer with _ComponentCache {
   }
 
   /// Constructs an object using the specified [registration].
-  dynamic construct(Scope scope, Registration registration) {
+  Object construct(Scope scope, Registration registration) {
     return registration.map(
         instance: (reg) => reg.instance,
         factory: (reg) => reg.factory(scope),
@@ -182,21 +184,20 @@ class _ComponentContainer with _ComponentCache {
 
           final positionalArguments = <dynamic>[];
           final namedArguments = <Symbol, dynamic>{};
-          for (var parameter in constructorMirror.parameters) {
+          for (var parameter in constructorMirror!.parameters) {
             dynamic parameterValue;
 
             final parameterOverride = reg.constructorParameters != null
-                ? reg.constructorParameters[parameter.name]
+                ? reg.constructorParameters![parameter.name]
                 : null;
 
             if (parameterOverride != null && !(parameterOverride is Named)) {
               parameterValue = parameterOverride;
             } else {
               final type = parameter.type;
-              final Named nameAttribute = parameterOverride is Named
+              final Named? nameAttribute = parameterOverride is Named
                   ? parameterOverride
-                  : parameter.metadata
-                      .firstWhere((m) => m is Named, orElse: () => null);
+                  : parameter.metadata.firstOrNull((m) => m is Named);
 
               parameterValue = _resolve(scope, type, nameAttribute?.name);
             }
@@ -217,27 +218,26 @@ class _ComponentContainer with _ComponentCache {
   /// will be used. If the registration is an [PersistenceType.InstancePerScope],
   /// the [scope]'s cache will be searched for the object before searching
   /// parent scopes.
-  dynamic _resolve(Scope scope, Type type, String name) {
+  Object _resolve(Scope scope, Type type, String? name) {
     if (type == Scope) {
       assert(name == null || name == '');
 
       return scope;
     }
 
-    final registration = _registrations.firstWhere(
-        (r) => r.asType == type && r.name == name,
-        orElse: () => null);
+    final registration =
+        _registrations.firstOrNull((r) => r.asType == type && r.name == name);
 
     if (registration == null) {
       _logger?.call('Registration for $type not found');
       throw RegistrationException('Registration not found for $type');
     }
 
-    if (registration.isScope ?? false) {
+    if (registration.isScope) {
       scope = scope.createScope();
     }
 
-    dynamic result;
+    Object? result;
     switch (registration.persistenceType) {
       case PersistenceType.SingleInstance:
         result = _cache[registration];
@@ -269,14 +269,14 @@ class _ComponentContainer with _ComponentCache {
           'Resolved $type with name \'${registration.name ?? ''}\' from cache');
     }
 
-    return result;
+    return result!;
   }
 
   /// Resolves an instance of [T]. If [name] is provided, a named registration
   /// will be used. If the registration is an [PersistenceType.InstancePerScope],
   /// the [scope]'s cache will be searched for the object before searching
   /// parent scopes.
-  T resolve<T>(Scope scope, {String name}) {
-    return _resolve(scope, T, name);
+  T resolve<T extends Object>(Scope scope, {String? name}) {
+    return _resolve(scope, T, name) as T;
   }
 }

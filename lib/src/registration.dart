@@ -18,7 +18,7 @@ enum PersistenceType {
 
 /// A class registration that specifies how a class will be created by Needle.
 @freezed
-abstract class Registration with _$Registration {
+class Registration with _$Registration {
   /// Creates a registration for an existing [instance] of a class.
   ///
   /// The registration can optionally specify the following attributes of
@@ -28,11 +28,11 @@ abstract class Registration with _$Registration {
   /// * The [persistenceType] of the registration that specifies if values for the registration are cached.
   /// * A value ([isScope]) indicating whether the object created by the registration is a new lifetime scope.
   const factory Registration.instance({
-    String name,
-    Type asType,
-    PersistenceType persistenceType,
-    bool isScope,
-    @required dynamic instance,
+    String? name,
+    Type? asType,
+    PersistenceType? persistenceType,
+    @Default(false) bool isScope,
+    required Object instance,
   }) = _Instance;
 
   /// Creates a registration for the class type represented by [classMirror].
@@ -47,12 +47,12 @@ abstract class Registration with _$Registration {
   /// * The name of the [constructor] to use when creating an instance of the class.
   /// * A value ([isScope]) indicating whether the object created by the registration is a new lifetime scope.
   const factory Registration.type({
-    String name,
-    Type asType,
-    PersistenceType persistenceType,
-    Map<String, dynamic> constructorParameters,
-    bool isScope,
-    @required ClassMirror classMirror,
+    String? name,
+    Type? asType,
+    PersistenceType? persistenceType,
+    Map<String, dynamic>? constructorParameters,
+    @Default(false) bool isScope,
+    required ClassMirror classMirror,
     @Default('') String constructor,
   }) = _Type;
 
@@ -65,10 +65,10 @@ abstract class Registration with _$Registration {
   /// * The [persistenceType] of the registration that specifies if values for the registration are cached.
   /// * A value ([isScope]) indicating whether the object created by the registration is a new lifetime scope.
   const factory Registration.factory({
-    String name,
-    @required Type asType,
-    PersistenceType persistenceType,
-    bool isScope,
-    dynamic Function(Scope container) factory,
+    String? name,
+    required Type? asType,
+    PersistenceType? persistenceType,
+    @Default(false) bool isScope,
+    required Object Function(Scope container) factory,
   }) = _Factory;
 }

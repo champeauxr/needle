@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'registration.dart';
 
@@ -9,15 +9,19 @@ part of 'registration.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
+/// @nodoc
 class _$RegistrationTearOff {
   const _$RegistrationTearOff();
 
   _Instance instance(
-      {String name,
-      Type asType,
-      PersistenceType persistenceType,
-      bool isScope,
-      @required dynamic instance}) {
+      {String? name,
+      Type? asType,
+      PersistenceType? persistenceType,
+      bool isScope = false,
+      required Object instance}) {
     return _Instance(
       name: name,
       asType: asType,
@@ -28,12 +32,12 @@ class _$RegistrationTearOff {
   }
 
   _Type type(
-      {String name,
-      Type asType,
-      PersistenceType persistenceType,
-      Map<String, dynamic> constructorParameters,
-      bool isScope,
-      @required ClassMirror classMirror,
+      {String? name,
+      Type? asType,
+      PersistenceType? persistenceType,
+      Map<String, dynamic>? constructorParameters,
+      bool isScope = false,
+      required ClassMirror classMirror,
       String constructor = ''}) {
     return _Type(
       name: name,
@@ -47,11 +51,11 @@ class _$RegistrationTearOff {
   }
 
   _Factory factory(
-      {String name,
-      @required Type asType,
-      PersistenceType persistenceType,
-      bool isScope,
-      dynamic Function(Scope) factory}) {
+      {String? name,
+      required Type? asType,
+      PersistenceType? persistenceType,
+      bool isScope = false,
+      required Object Function(Scope) factory}) {
     return _Factory(
       name: name,
       asType: asType,
@@ -62,81 +66,97 @@ class _$RegistrationTearOff {
   }
 }
 
-// ignore: unused_element
+/// @nodoc
 const $Registration = _$RegistrationTearOff();
 
+/// @nodoc
 mixin _$Registration {
-  String get name;
-  Type get asType;
-  PersistenceType get persistenceType;
-  bool get isScope;
+  String? get name => throw _privateConstructorUsedError;
+  Type? get asType => throw _privateConstructorUsedError;
+  PersistenceType? get persistenceType => throw _privateConstructorUsedError;
+  bool get isScope => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result instance(String name, Type asType,
-            PersistenceType persistenceType, bool isScope, dynamic instance),
-    @required
-        Result type(
-            String name,
-            Type asType,
-            PersistenceType persistenceType,
-            Map<String, dynamic> constructorParameters,
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? name, Type? asType,
+            PersistenceType? persistenceType, bool isScope, Object instance)
+        instance,
+    required TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            Map<String, dynamic>? constructorParameters,
             bool isScope,
             ClassMirror classMirror,
-            String constructor),
-    @required
-        Result factory(
-            String name,
-            Type asType,
-            PersistenceType persistenceType,
+            String constructor)
+        type,
+    required TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
             bool isScope,
-            dynamic Function(Scope) factory),
-  });
+            Object Function(Scope) factory)
+        factory,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result instance(String name, Type asType, PersistenceType persistenceType,
-        bool isScope, dynamic instance),
-    Result type(
-        String name,
-        Type asType,
-        PersistenceType persistenceType,
-        Map<String, dynamic> constructorParameters,
-        bool isScope,
-        ClassMirror classMirror,
-        String constructor),
-    Result factory(String name, Type asType, PersistenceType persistenceType,
-        bool isScope, dynamic Function(Scope) factory),
-    @required Result orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? name, Type? asType,
+            PersistenceType? persistenceType, bool isScope, Object instance)?
+        instance,
+    TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            Map<String, dynamic>? constructorParameters,
+            bool isScope,
+            ClassMirror classMirror,
+            String constructor)?
+        type,
+    TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            bool isScope,
+            Object Function(Scope) factory)?
+        factory,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result instance(_Instance value),
-    @required Result type(_Type value),
-    @required Result factory(_Factory value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Instance value) instance,
+    required TResult Function(_Type value) type,
+    required TResult Function(_Factory value) factory,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result instance(_Instance value),
-    Result type(_Type value),
-    Result factory(_Factory value),
-    @required Result orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Instance value)? instance,
+    TResult Function(_Type value)? type,
+    TResult Function(_Factory value)? factory,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 
-  $RegistrationCopyWith<Registration> get copyWith;
+  @JsonKey(ignore: true)
+  $RegistrationCopyWith<Registration> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
+/// @nodoc
 abstract class $RegistrationCopyWith<$Res> {
   factory $RegistrationCopyWith(
           Registration value, $Res Function(Registration) then) =
       _$RegistrationCopyWithImpl<$Res>;
   $Res call(
-      {String name,
-      Type asType,
-      PersistenceType persistenceType,
+      {String? name,
+      Type? asType,
+      PersistenceType? persistenceType,
       bool isScope});
 }
 
+/// @nodoc
 class _$RegistrationCopyWithImpl<$Res> implements $RegistrationCopyWith<$Res> {
   _$RegistrationCopyWithImpl(this._value, this._then);
 
@@ -146,34 +166,46 @@ class _$RegistrationCopyWithImpl<$Res> implements $RegistrationCopyWith<$Res> {
 
   @override
   $Res call({
-    Object name = freezed,
-    Object asType = freezed,
-    Object persistenceType = freezed,
-    Object isScope = freezed,
+    Object? name = freezed,
+    Object? asType = freezed,
+    Object? persistenceType = freezed,
+    Object? isScope = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed ? _value.name : name as String,
-      asType: asType == freezed ? _value.asType : asType as Type,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      asType: asType == freezed
+          ? _value.asType
+          : asType // ignore: cast_nullable_to_non_nullable
+              as Type?,
       persistenceType: persistenceType == freezed
           ? _value.persistenceType
-          : persistenceType as PersistenceType,
-      isScope: isScope == freezed ? _value.isScope : isScope as bool,
+          : persistenceType // ignore: cast_nullable_to_non_nullable
+              as PersistenceType?,
+      isScope: isScope == freezed
+          ? _value.isScope
+          : isScope // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
+/// @nodoc
 abstract class _$InstanceCopyWith<$Res> implements $RegistrationCopyWith<$Res> {
   factory _$InstanceCopyWith(_Instance value, $Res Function(_Instance) then) =
       __$InstanceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
-      Type asType,
-      PersistenceType persistenceType,
+      {String? name,
+      Type? asType,
+      PersistenceType? persistenceType,
       bool isScope,
-      dynamic instance});
+      Object instance});
 }
 
+/// @nodoc
 class __$InstanceCopyWithImpl<$Res> extends _$RegistrationCopyWithImpl<$Res>
     implements _$InstanceCopyWith<$Res> {
   __$InstanceCopyWithImpl(_Instance _value, $Res Function(_Instance) _then)
@@ -184,43 +216,58 @@ class __$InstanceCopyWithImpl<$Res> extends _$RegistrationCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object name = freezed,
-    Object asType = freezed,
-    Object persistenceType = freezed,
-    Object isScope = freezed,
-    Object instance = freezed,
+    Object? name = freezed,
+    Object? asType = freezed,
+    Object? persistenceType = freezed,
+    Object? isScope = freezed,
+    Object? instance = freezed,
   }) {
     return _then(_Instance(
-      name: name == freezed ? _value.name : name as String,
-      asType: asType == freezed ? _value.asType : asType as Type,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      asType: asType == freezed
+          ? _value.asType
+          : asType // ignore: cast_nullable_to_non_nullable
+              as Type?,
       persistenceType: persistenceType == freezed
           ? _value.persistenceType
-          : persistenceType as PersistenceType,
-      isScope: isScope == freezed ? _value.isScope : isScope as bool,
-      instance: instance == freezed ? _value.instance : instance as dynamic,
+          : persistenceType // ignore: cast_nullable_to_non_nullable
+              as PersistenceType?,
+      isScope: isScope == freezed
+          ? _value.isScope
+          : isScope // ignore: cast_nullable_to_non_nullable
+              as bool,
+      instance: instance == freezed
+          ? _value.instance
+          : instance // ignore: cast_nullable_to_non_nullable
+              as Object,
     ));
   }
 }
+
+/// @nodoc
 
 class _$_Instance implements _Instance {
   const _$_Instance(
       {this.name,
       this.asType,
       this.persistenceType,
-      this.isScope,
-      @required this.instance})
-      : assert(instance != null);
+      this.isScope = false,
+      required this.instance});
 
   @override
-  final String name;
+  final String? name;
   @override
-  final Type asType;
+  final Type? asType;
   @override
-  final PersistenceType persistenceType;
+  final PersistenceType? persistenceType;
+  @JsonKey(defaultValue: false)
   @override
   final bool isScope;
   @override
-  final dynamic instance;
+  final Object instance;
 
   @override
   String toString() {
@@ -255,57 +302,61 @@ class _$_Instance implements _Instance {
       const DeepCollectionEquality().hash(isScope) ^
       const DeepCollectionEquality().hash(instance);
 
+  @JsonKey(ignore: true)
   @override
   _$InstanceCopyWith<_Instance> get copyWith =>
       __$InstanceCopyWithImpl<_Instance>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result instance(String name, Type asType,
-            PersistenceType persistenceType, bool isScope, dynamic instance),
-    @required
-        Result type(
-            String name,
-            Type asType,
-            PersistenceType persistenceType,
-            Map<String, dynamic> constructorParameters,
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? name, Type? asType,
+            PersistenceType? persistenceType, bool isScope, Object instance)
+        instance,
+    required TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            Map<String, dynamic>? constructorParameters,
             bool isScope,
             ClassMirror classMirror,
-            String constructor),
-    @required
-        Result factory(
-            String name,
-            Type asType,
-            PersistenceType persistenceType,
+            String constructor)
+        type,
+    required TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
             bool isScope,
-            dynamic Function(Scope) factory),
+            Object Function(Scope) factory)
+        factory,
   }) {
-    assert(instance != null);
-    assert(type != null);
-    assert(factory != null);
     return instance(name, asType, persistenceType, isScope, this.instance);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result instance(String name, Type asType, PersistenceType persistenceType,
-        bool isScope, dynamic instance),
-    Result type(
-        String name,
-        Type asType,
-        PersistenceType persistenceType,
-        Map<String, dynamic> constructorParameters,
-        bool isScope,
-        ClassMirror classMirror,
-        String constructor),
-    Result factory(String name, Type asType, PersistenceType persistenceType,
-        bool isScope, dynamic Function(Scope) factory),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? name, Type? asType,
+            PersistenceType? persistenceType, bool isScope, Object instance)?
+        instance,
+    TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            Map<String, dynamic>? constructorParameters,
+            bool isScope,
+            ClassMirror classMirror,
+            String constructor)?
+        type,
+    TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            bool isScope,
+            Object Function(Scope) factory)?
+        factory,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (instance != null) {
       return instance(name, asType, persistenceType, isScope, this.instance);
     }
@@ -314,26 +365,22 @@ class _$_Instance implements _Instance {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result instance(_Instance value),
-    @required Result type(_Type value),
-    @required Result factory(_Factory value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Instance value) instance,
+    required TResult Function(_Type value) type,
+    required TResult Function(_Factory value) factory,
   }) {
-    assert(instance != null);
-    assert(type != null);
-    assert(factory != null);
     return instance(this);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result instance(_Instance value),
-    Result type(_Type value),
-    Result factory(_Factory value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Instance value)? instance,
+    TResult Function(_Type value)? type,
+    TResult Function(_Factory value)? factory,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (instance != null) {
       return instance(this);
     }
@@ -343,39 +390,43 @@ class _$_Instance implements _Instance {
 
 abstract class _Instance implements Registration {
   const factory _Instance(
-      {String name,
-      Type asType,
-      PersistenceType persistenceType,
+      {String? name,
+      Type? asType,
+      PersistenceType? persistenceType,
       bool isScope,
-      @required dynamic instance}) = _$_Instance;
+      required Object instance}) = _$_Instance;
 
   @override
-  String get name;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  Type get asType;
+  Type? get asType => throw _privateConstructorUsedError;
   @override
-  PersistenceType get persistenceType;
+  PersistenceType? get persistenceType => throw _privateConstructorUsedError;
   @override
-  bool get isScope;
-  dynamic get instance;
+  bool get isScope => throw _privateConstructorUsedError;
+  Object get instance => throw _privateConstructorUsedError;
   @override
-  _$InstanceCopyWith<_Instance> get copyWith;
+  @JsonKey(ignore: true)
+  _$InstanceCopyWith<_Instance> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
+/// @nodoc
 abstract class _$TypeCopyWith<$Res> implements $RegistrationCopyWith<$Res> {
   factory _$TypeCopyWith(_Type value, $Res Function(_Type) then) =
       __$TypeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
-      Type asType,
-      PersistenceType persistenceType,
-      Map<String, dynamic> constructorParameters,
+      {String? name,
+      Type? asType,
+      PersistenceType? persistenceType,
+      Map<String, dynamic>? constructorParameters,
       bool isScope,
       ClassMirror classMirror,
       String constructor});
 }
 
+/// @nodoc
 class __$TypeCopyWithImpl<$Res> extends _$RegistrationCopyWithImpl<$Res>
     implements _$TypeCopyWith<$Res> {
   __$TypeCopyWithImpl(_Type _value, $Res Function(_Type) _then)
@@ -386,32 +437,48 @@ class __$TypeCopyWithImpl<$Res> extends _$RegistrationCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object name = freezed,
-    Object asType = freezed,
-    Object persistenceType = freezed,
-    Object constructorParameters = freezed,
-    Object isScope = freezed,
-    Object classMirror = freezed,
-    Object constructor = freezed,
+    Object? name = freezed,
+    Object? asType = freezed,
+    Object? persistenceType = freezed,
+    Object? constructorParameters = freezed,
+    Object? isScope = freezed,
+    Object? classMirror = freezed,
+    Object? constructor = freezed,
   }) {
     return _then(_Type(
-      name: name == freezed ? _value.name : name as String,
-      asType: asType == freezed ? _value.asType : asType as Type,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      asType: asType == freezed
+          ? _value.asType
+          : asType // ignore: cast_nullable_to_non_nullable
+              as Type?,
       persistenceType: persistenceType == freezed
           ? _value.persistenceType
-          : persistenceType as PersistenceType,
+          : persistenceType // ignore: cast_nullable_to_non_nullable
+              as PersistenceType?,
       constructorParameters: constructorParameters == freezed
           ? _value.constructorParameters
-          : constructorParameters as Map<String, dynamic>,
-      isScope: isScope == freezed ? _value.isScope : isScope as bool,
+          : constructorParameters // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      isScope: isScope == freezed
+          ? _value.isScope
+          : isScope // ignore: cast_nullable_to_non_nullable
+              as bool,
       classMirror: classMirror == freezed
           ? _value.classMirror
-          : classMirror as ClassMirror,
-      constructor:
-          constructor == freezed ? _value.constructor : constructor as String,
+          : classMirror // ignore: cast_nullable_to_non_nullable
+              as ClassMirror,
+      constructor: constructor == freezed
+          ? _value.constructor
+          : constructor // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
+
+/// @nodoc
 
 class _$_Type implements _Type {
   const _$_Type(
@@ -419,20 +486,19 @@ class _$_Type implements _Type {
       this.asType,
       this.persistenceType,
       this.constructorParameters,
-      this.isScope,
-      @required this.classMirror,
-      this.constructor = ''})
-      : assert(classMirror != null),
-        assert(constructor != null);
+      this.isScope = false,
+      required this.classMirror,
+      this.constructor = ''});
 
   @override
-  final String name;
+  final String? name;
   @override
-  final Type asType;
+  final Type? asType;
   @override
-  final PersistenceType persistenceType;
+  final PersistenceType? persistenceType;
   @override
-  final Map<String, dynamic> constructorParameters;
+  final Map<String, dynamic>? constructorParameters;
+  @JsonKey(defaultValue: false)
   @override
   final bool isScope;
   @override
@@ -482,58 +548,62 @@ class _$_Type implements _Type {
       const DeepCollectionEquality().hash(classMirror) ^
       const DeepCollectionEquality().hash(constructor);
 
+  @JsonKey(ignore: true)
   @override
   _$TypeCopyWith<_Type> get copyWith =>
       __$TypeCopyWithImpl<_Type>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result instance(String name, Type asType,
-            PersistenceType persistenceType, bool isScope, dynamic instance),
-    @required
-        Result type(
-            String name,
-            Type asType,
-            PersistenceType persistenceType,
-            Map<String, dynamic> constructorParameters,
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? name, Type? asType,
+            PersistenceType? persistenceType, bool isScope, Object instance)
+        instance,
+    required TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            Map<String, dynamic>? constructorParameters,
             bool isScope,
             ClassMirror classMirror,
-            String constructor),
-    @required
-        Result factory(
-            String name,
-            Type asType,
-            PersistenceType persistenceType,
+            String constructor)
+        type,
+    required TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
             bool isScope,
-            dynamic Function(Scope) factory),
+            Object Function(Scope) factory)
+        factory,
   }) {
-    assert(instance != null);
-    assert(type != null);
-    assert(factory != null);
     return type(name, asType, persistenceType, constructorParameters, isScope,
         classMirror, constructor);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result instance(String name, Type asType, PersistenceType persistenceType,
-        bool isScope, dynamic instance),
-    Result type(
-        String name,
-        Type asType,
-        PersistenceType persistenceType,
-        Map<String, dynamic> constructorParameters,
-        bool isScope,
-        ClassMirror classMirror,
-        String constructor),
-    Result factory(String name, Type asType, PersistenceType persistenceType,
-        bool isScope, dynamic Function(Scope) factory),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? name, Type? asType,
+            PersistenceType? persistenceType, bool isScope, Object instance)?
+        instance,
+    TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            Map<String, dynamic>? constructorParameters,
+            bool isScope,
+            ClassMirror classMirror,
+            String constructor)?
+        type,
+    TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            bool isScope,
+            Object Function(Scope) factory)?
+        factory,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (type != null) {
       return type(name, asType, persistenceType, constructorParameters, isScope,
           classMirror, constructor);
@@ -543,26 +613,22 @@ class _$_Type implements _Type {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result instance(_Instance value),
-    @required Result type(_Type value),
-    @required Result factory(_Factory value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Instance value) instance,
+    required TResult Function(_Type value) type,
+    required TResult Function(_Factory value) factory,
   }) {
-    assert(instance != null);
-    assert(type != null);
-    assert(factory != null);
     return type(this);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result instance(_Instance value),
-    Result type(_Type value),
-    Result factory(_Factory value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Instance value)? instance,
+    TResult Function(_Type value)? type,
+    TResult Function(_Factory value)? factory,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (type != null) {
       return type(this);
     }
@@ -572,41 +638,45 @@ class _$_Type implements _Type {
 
 abstract class _Type implements Registration {
   const factory _Type(
-      {String name,
-      Type asType,
-      PersistenceType persistenceType,
-      Map<String, dynamic> constructorParameters,
+      {String? name,
+      Type? asType,
+      PersistenceType? persistenceType,
+      Map<String, dynamic>? constructorParameters,
       bool isScope,
-      @required ClassMirror classMirror,
+      required ClassMirror classMirror,
       String constructor}) = _$_Type;
 
   @override
-  String get name;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  Type get asType;
+  Type? get asType => throw _privateConstructorUsedError;
   @override
-  PersistenceType get persistenceType;
-  Map<String, dynamic> get constructorParameters;
+  PersistenceType? get persistenceType => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get constructorParameters =>
+      throw _privateConstructorUsedError;
   @override
-  bool get isScope;
-  ClassMirror get classMirror;
-  String get constructor;
+  bool get isScope => throw _privateConstructorUsedError;
+  ClassMirror get classMirror => throw _privateConstructorUsedError;
+  String get constructor => throw _privateConstructorUsedError;
   @override
-  _$TypeCopyWith<_Type> get copyWith;
+  @JsonKey(ignore: true)
+  _$TypeCopyWith<_Type> get copyWith => throw _privateConstructorUsedError;
 }
 
+/// @nodoc
 abstract class _$FactoryCopyWith<$Res> implements $RegistrationCopyWith<$Res> {
   factory _$FactoryCopyWith(_Factory value, $Res Function(_Factory) then) =
       __$FactoryCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
-      Type asType,
-      PersistenceType persistenceType,
+      {String? name,
+      Type? asType,
+      PersistenceType? persistenceType,
       bool isScope,
-      dynamic Function(Scope) factory});
+      Object Function(Scope) factory});
 }
 
+/// @nodoc
 class __$FactoryCopyWithImpl<$Res> extends _$RegistrationCopyWithImpl<$Res>
     implements _$FactoryCopyWith<$Res> {
   __$FactoryCopyWithImpl(_Factory _value, $Res Function(_Factory) _then)
@@ -617,45 +687,58 @@ class __$FactoryCopyWithImpl<$Res> extends _$RegistrationCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object name = freezed,
-    Object asType = freezed,
-    Object persistenceType = freezed,
-    Object isScope = freezed,
-    Object factory = freezed,
+    Object? name = freezed,
+    Object? asType = freezed,
+    Object? persistenceType = freezed,
+    Object? isScope = freezed,
+    Object? factory = freezed,
   }) {
     return _then(_Factory(
-      name: name == freezed ? _value.name : name as String,
-      asType: asType == freezed ? _value.asType : asType as Type,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      asType: asType == freezed
+          ? _value.asType
+          : asType // ignore: cast_nullable_to_non_nullable
+              as Type?,
       persistenceType: persistenceType == freezed
           ? _value.persistenceType
-          : persistenceType as PersistenceType,
-      isScope: isScope == freezed ? _value.isScope : isScope as bool,
+          : persistenceType // ignore: cast_nullable_to_non_nullable
+              as PersistenceType?,
+      isScope: isScope == freezed
+          ? _value.isScope
+          : isScope // ignore: cast_nullable_to_non_nullable
+              as bool,
       factory: factory == freezed
           ? _value.factory
-          : factory as dynamic Function(Scope),
+          : factory // ignore: cast_nullable_to_non_nullable
+              as Object Function(Scope),
     ));
   }
 }
 
+/// @nodoc
+
 class _$_Factory implements _Factory {
   const _$_Factory(
       {this.name,
-      @required this.asType,
+      required this.asType,
       this.persistenceType,
-      this.isScope,
-      this.factory})
-      : assert(asType != null);
+      this.isScope = false,
+      required this.factory});
 
   @override
-  final String name;
+  final String? name;
   @override
-  final Type asType;
+  final Type? asType;
   @override
-  final PersistenceType persistenceType;
+  final PersistenceType? persistenceType;
+  @JsonKey(defaultValue: false)
   @override
   final bool isScope;
   @override
-  final dynamic Function(Scope) factory;
+  final Object Function(Scope) factory;
 
   @override
   String toString() {
@@ -689,57 +772,61 @@ class _$_Factory implements _Factory {
       const DeepCollectionEquality().hash(isScope) ^
       const DeepCollectionEquality().hash(factory);
 
+  @JsonKey(ignore: true)
   @override
   _$FactoryCopyWith<_Factory> get copyWith =>
       __$FactoryCopyWithImpl<_Factory>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result instance(String name, Type asType,
-            PersistenceType persistenceType, bool isScope, dynamic instance),
-    @required
-        Result type(
-            String name,
-            Type asType,
-            PersistenceType persistenceType,
-            Map<String, dynamic> constructorParameters,
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? name, Type? asType,
+            PersistenceType? persistenceType, bool isScope, Object instance)
+        instance,
+    required TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            Map<String, dynamic>? constructorParameters,
             bool isScope,
             ClassMirror classMirror,
-            String constructor),
-    @required
-        Result factory(
-            String name,
-            Type asType,
-            PersistenceType persistenceType,
+            String constructor)
+        type,
+    required TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
             bool isScope,
-            dynamic Function(Scope) factory),
+            Object Function(Scope) factory)
+        factory,
   }) {
-    assert(instance != null);
-    assert(type != null);
-    assert(factory != null);
     return factory(name, asType, persistenceType, isScope, this.factory);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result instance(String name, Type asType, PersistenceType persistenceType,
-        bool isScope, dynamic instance),
-    Result type(
-        String name,
-        Type asType,
-        PersistenceType persistenceType,
-        Map<String, dynamic> constructorParameters,
-        bool isScope,
-        ClassMirror classMirror,
-        String constructor),
-    Result factory(String name, Type asType, PersistenceType persistenceType,
-        bool isScope, dynamic Function(Scope) factory),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? name, Type? asType,
+            PersistenceType? persistenceType, bool isScope, Object instance)?
+        instance,
+    TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            Map<String, dynamic>? constructorParameters,
+            bool isScope,
+            ClassMirror classMirror,
+            String constructor)?
+        type,
+    TResult Function(
+            String? name,
+            Type? asType,
+            PersistenceType? persistenceType,
+            bool isScope,
+            Object Function(Scope) factory)?
+        factory,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (factory != null) {
       return factory(name, asType, persistenceType, isScope, this.factory);
     }
@@ -748,26 +835,22 @@ class _$_Factory implements _Factory {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result instance(_Instance value),
-    @required Result type(_Type value),
-    @required Result factory(_Factory value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Instance value) instance,
+    required TResult Function(_Type value) type,
+    required TResult Function(_Factory value) factory,
   }) {
-    assert(instance != null);
-    assert(type != null);
-    assert(factory != null);
     return factory(this);
   }
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result instance(_Instance value),
-    Result type(_Type value),
-    Result factory(_Factory value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Instance value)? instance,
+    TResult Function(_Type value)? type,
+    TResult Function(_Factory value)? factory,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (factory != null) {
       return factory(this);
     }
@@ -777,21 +860,23 @@ class _$_Factory implements _Factory {
 
 abstract class _Factory implements Registration {
   const factory _Factory(
-      {String name,
-      @required Type asType,
-      PersistenceType persistenceType,
+      {String? name,
+      required Type? asType,
+      PersistenceType? persistenceType,
       bool isScope,
-      dynamic Function(Scope) factory}) = _$_Factory;
+      required Object Function(Scope) factory}) = _$_Factory;
 
   @override
-  String get name;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  Type get asType;
+  Type? get asType => throw _privateConstructorUsedError;
   @override
-  PersistenceType get persistenceType;
+  PersistenceType? get persistenceType => throw _privateConstructorUsedError;
   @override
-  bool get isScope;
-  dynamic Function(Scope) get factory;
+  bool get isScope => throw _privateConstructorUsedError;
+  Object Function(Scope) get factory => throw _privateConstructorUsedError;
   @override
-  _$FactoryCopyWith<_Factory> get copyWith;
+  @JsonKey(ignore: true)
+  _$FactoryCopyWith<_Factory> get copyWith =>
+      throw _privateConstructorUsedError;
 }

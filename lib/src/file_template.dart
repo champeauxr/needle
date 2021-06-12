@@ -12,7 +12,7 @@ int prefixNum = 1;
 /// import is returned. If a new import is created for the [element]'s library,
 /// then a new prefix is created and cached.
 String getPrefix(Element element) {
-  final importUri = element.source.uri.toString();
+  final importUri = element.source!.uri.toString();
   var importTemplate = imports[importUri];
   if (importTemplate == null) {
     importTemplate = ImportTemplate(importUri, 'prefix${prefixNum++}');
@@ -25,7 +25,7 @@ String getPrefix(Element element) {
 /// Returns the name of the [element]'s class with its prefix if the the class
 /// is not in the Core or Async library.
 String getPrefixedName(Element element) {
-  if (element.library.isDartAsync || element.library.isDartCore) {
+  if (element.library!.isDartAsync || element.library!.isDartCore) {
     return element.displayName;
   }
 
@@ -36,7 +36,7 @@ String getPrefixedName(Element element) {
 /// Builds a type name of [type] using the import prefixes.
 String buildTypeName(DartType type) {
   final buffer = StringBuffer();
-  buffer.write(getPrefixedName(type.element));
+  buffer.write(getPrefixedName(type.element!));
 
   if (type is InterfaceType) {
     if (type.typeArguments.isNotEmpty) {
@@ -87,7 +87,7 @@ $renderedImports
 
 class \$$factoryName extends ScopeBuilder {
   @override
-  ClassMirror getMirror(Type type) => _mirrors[type];
+  ClassMirror getMirror(Type type) => _mirrors[type]!;
   
   Map<Type, ClassMirror> get _mirrors => {
 $renderedClasses
@@ -174,7 +174,7 @@ class ConstructorTemplate {
     this.parameters,
   );
 
-  final String name;
+  final String? name;
   final String className;
   final List<ParameterTemplate> parameters;
 
@@ -250,7 +250,7 @@ class ParameterTemplate {
     const reflectChecker = TypeChecker.fromRuntime(Named);
     final attr = reflectChecker.firstAnnotationOf(parameterElement);
     final namedAttribute = attr != null
-        ? "const Named('${attr.getField('name').toStringValue()}')"
+        ? "const Named('${attr.getField('name')!.toStringValue()}')"
         : '';
 
     return ParameterTemplate._(
@@ -276,7 +276,7 @@ class ParameterTemplate {
   final bool isOptional;
   final bool isNamed;
   final String typeDeclaration;
-  final String defaultValue;
+  final String? defaultValue;
   final String namedAttribute;
 
   /// Renders the parameter as a function parameter.

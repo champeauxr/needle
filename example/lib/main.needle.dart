@@ -5,7 +5,7 @@ import 'package:needle_example/main.dart' as prefix1;
 
 class $Builder extends ScopeBuilder {
   @override
-  ClassMirror getMirror(Type type) => _mirrors[type];
+  ClassMirror getMirror(Type type) => _mirrors[type]!;
 
   Map<Type, ClassMirror> get _mirrors => {
         prefix1.ObjectCache: ClassMirror(
@@ -139,28 +139,28 @@ class $Builder extends ScopeBuilder {
                 ParameterMirror(
                   'fooRepository',
                   typeOf<prefix1.FooRepository>(),
-                  true,
+                  false,
                   true,
                   [],
                 ),
                 ParameterMirror(
                   'barRepository',
                   typeOf<prefix1.BarRepository>(),
-                  true,
+                  false,
                   true,
                   [],
                 ),
                 ParameterMirror(
                   'fooCache',
                   typeOf<prefix1.ObjectCache>(),
-                  true,
+                  false,
                   true,
                   [],
                 ),
                 ParameterMirror(
                   'barCache',
                   typeOf<prefix1.ObjectCache>(),
-                  true,
+                  false,
                   true,
                   [],
                 )
@@ -189,32 +189,6 @@ class $Builder extends ScopeBuilder {
                 )
               ],
               (someField) => prefix1.SomeService(someField),
-            )
-          },
-        ),
-        prefix1.AnotherService: ClassMirror(
-          prefix1.AnotherService,
-          {
-            '': ConstructorMirror(
-              '',
-              <ParameterMirror>[
-                ParameterMirror(
-                  'someField',
-                  typeOf<int>(),
-                  true,
-                  true,
-                  [],
-                ),
-                ParameterMirror(
-                  'anotherField',
-                  typeOf<int>(),
-                  true,
-                  true,
-                  [],
-                )
-              ],
-              ({someField, anotherField}) => prefix1.AnotherService(
-                  someField: someField, anotherField: anotherField),
             )
           },
         )
